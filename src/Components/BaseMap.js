@@ -18,12 +18,12 @@ const BaseMap = () => {
             zoom: zoom
         });
 
-    /* map.on('load', () => {
-        map.addSource('kenya-test-map', {
+     map.on('load', () => {
+        map.addSource('los-angeles-CDHP', {
             type:'geojson',
-            data: 
+            data: https://geohub.lacity.org/datasets/lacounty::cdph-healthcare-facilities/explore?location=34.055069%2C-118.247850%2C10.36
         });
-    }); */
+    }); 
     
     map.current.on('move', () => {
         setLng(map.current.getCenter().lng.toFixed(4));
