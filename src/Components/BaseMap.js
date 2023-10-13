@@ -18,19 +18,33 @@ const BaseMap = () => {
             zoom: zoom
         });
 
-     map.on('load', () => {
-        map.addSource('los-angeles-CDHP', {
-            type:'geojson',
-            data: https://geohub.lacity.org/datasets/lacounty::cdph-healthcare-facilities/explore?location=34.055069%2C-118.247850%2C10.36
+        map.current.on('load', () => {
+            map.current.addSource('cdph-healthcare-facilities', {
+                type: 'geojson',
+                // Use a URL for the value for the `data` property.
+                data: 'src/data/cdph-healthcare-facilities.geojson'
+            });
+             
+            /* map.current.addLayer({
+                'id': 'health-facilities',
+                'type': 'circle',
+                'source': 'cdph-healthcare-facilities',
+                'paint': {
+                    'circle-radius': 4,
+                    'circle-stroke-width': 2,
+                    'circle-color': 'red',
+                    'circle-stroke-color': 'white'
+                }
+            }); */
         });
-    }); 
-    
-    map.current.on('move', () => {
-        setLng(map.current.getCenter().lng.toFixed(4));
-        setLat(map.current.getCenter().lat.toFixed(4));
-        setZoom(map.current.getZoom().toFixed(2));
-    });
 
+
+        map.current.on('move', () => {
+            setLng(map.current.getCenter().lng.toFixed(4));
+            setLat(map.current.getCenter().lat.toFixed(4));
+            setZoom(map.current.getZoom().toFixed(2));
+        });
+        
     });
 
   return (
