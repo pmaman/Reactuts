@@ -5,9 +5,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicG1hbWFuMjAiLCJhIjoiY2ttYXhma2x2MXRsajJxb2M5c
 const BaseMap = () => {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(30.1177);
-    const [lat, setLat] = useState(11.0462);
-    const [zoom, setZoom] = useState(2.61);
+    const [lng, setLng] = useState(-118.2064);
+    const [lat, setLat] = useState(34.0222);
+    const [zoom, setZoom] = useState(9.5);
    
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -21,11 +21,10 @@ const BaseMap = () => {
         map.current.on('load', () => {
             map.current.addSource('cdph-healthcare-facilities', {
                 type: 'geojson',
-                // Use a URL for the value for the `data` property.
-                data: 'src/data/cdph-healthcare-facilities.geojson'
+                data: 'https://pmaman.github.io/Reactuts/src/data/cdph-healthcare-facilities.geojson'
             });
              
-            /* map.current.addLayer({
+            map.current.addLayer({
                 'id': 'health-facilities',
                 'type': 'circle',
                 'source': 'cdph-healthcare-facilities',
@@ -35,7 +34,7 @@ const BaseMap = () => {
                     'circle-color': 'red',
                     'circle-stroke-color': 'white'
                 }
-            }); */
+            });
         });
 
 
