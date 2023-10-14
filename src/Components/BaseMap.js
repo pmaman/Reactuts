@@ -35,6 +35,21 @@ const BaseMap = () => {
                     'circle-stroke-color': 'white'
                 }
             });
+
+            map.current.addSource('Opportunity_Zones_CA', {
+                type: 'geojson',
+                data: 'https://pmaman.github.io/Reactuts/src/data/Opportunity_Zones_CA.geojson'
+            });
+
+            map.current.addLayer({
+                'id': 'opportunity-zones',
+                type: 'fill', 
+                source: 'Opportunity_Zones_CA',
+                'paint':{
+                    'fill-color': '#000000',
+                    'fill-opacity': 0.5
+                }
+            })
         });
 
 
