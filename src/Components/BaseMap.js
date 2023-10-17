@@ -19,13 +19,61 @@ const BaseMap = () => {
         });
 
         map.current.on('load', () => {
+            map.current.addSource('Liquefaction_zones', {
+                type: 'geojson',
+                data: 'https://pmaman.github.io/Reactuts/src/data/Liquefaction_zones.geojson'
+            });
+
+            map.current.addLayer({
+                'id': 'liquefaction-zones-fill',
+                type: 'fill', 
+                source: 'Liquefaction_zones',
+                'paint':{
+                    'fill-color': '#28b3d5',
+                    'fill-opacity': 0.5
+                }
+            }, 'building-number-label');
+
+            map.current.addLayer({
+                'id': 'liquefaction-zones-line',
+                type: 'line', 
+                source: 'Liquefaction_zones',
+                'paint':{
+                    'line-color': '#ffffff'
+                }
+            }, 'building-number-label');
+
+            map.current.addSource('opportunity-zones-ca', {
+                type: 'geojson',
+                data: 'https://pmaman.github.io/Reactuts/src/data/Opportunity_Zones_CA.geojson'
+            });
+
+            map.current.addLayer({
+                'id': 'opportunity-zones-fill',
+                type: 'fill', 
+                source: 'opportunity-zones-ca',
+                'paint':{
+                    'fill-color': '#000000',
+                    'fill-opacity': 0.5
+                }
+            }, 'building-number-label');
+
+            map.current.addLayer({
+                'id': 'opportunity-zones-line',
+                type: 'line', 
+                source: 'opportunity-zones-ca',
+                'paint':{
+                    'line-color': '#ffffff'
+                }
+            }, 'building-number-label');
+
             map.current.addSource('cdph-healthcare-facilities', {
                 type: 'geojson',
                 data: 'https://pmaman.github.io/Reactuts/src/data/cdph-healthcare-facilities.geojson'
             });
              
             map.current.addLayer({
-                'id': 'health-facilities',
+                'id': 'health-facilities-circle',
                 'type': 'circle',
                 'source': 'cdph-healthcare-facilities',
                 'paint': {
@@ -34,22 +82,11 @@ const BaseMap = () => {
                     'circle-color': 'red',
                     'circle-stroke-color': 'white'
                 }
-            });
+            } , 'building-number-label');
 
-            map.current.addSource('Opportunity_Zones_CA', {
-                type: 'geojson',
-                data: 'https://pmaman.github.io/Reactuts/src/data/Opportunity_Zones_CA.geojson'
-            });
-
-            map.current.addLayer({
-                'id': 'opportunity-zones',
-                type: 'fill', 
-                source: 'Opportunity_Zones_CA',
-                'paint':{
-                    'fill-color': '#000000',
-                    'fill-opacity': 0.5
-                }
-            })
+            // by the below console.log you can view all the mapbox layers loaded, find the last layer that you want to insert a new one before and add it as a second argyument in addLayer() ... in this case trying to add my layers below the map labels
+            //const steez = map.current.getStyle();
+            //console.log(steez);
         });
 
 
@@ -57,6 +94,14 @@ const BaseMap = () => {
             setLng(map.current.getCenter().lng.toFixed(4));
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
+        });
+
+        map.current.on('click', (e) => {
+            //console.log('clicked', e.point)
+            const feat = map.current.queryRenderedFeatures(e.point, {
+                layers: ['opportunity-zones-fill']
+            });
+            console.log(feat)
         });
         
     });
