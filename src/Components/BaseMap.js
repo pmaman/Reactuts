@@ -67,6 +67,21 @@ const BaseMap = () => {
                 }
             }, 'building-number-label');
 
+            map.current.addSource('lacmta-brt', {
+                type: 'geojson',
+                data: 'https://pmaman.github.io/Reactuts/src/data/lacmta-brt.geojson'
+            });
+
+            map.current.addLayer({
+                'id': 'lacmta-brt',
+                type: 'MultiLineString', 
+                source: 'lacmta-brt',
+                'paint':{
+                    'line-color': 'black',
+                    'line-weight' : 10
+                }
+            }, 'building-number-label');
+
             map.current.addSource('cdph-healthcare-facilities', {
                 type: 'geojson',
                 data: 'https://pmaman.github.io/Reactuts/src/data/cdph-healthcare-facilities.geojson'
