@@ -69,12 +69,12 @@ const BaseMap = () => {
 
             map.current.addSource('lacmta-brt', {
                 type: 'geojson',
-                data: 'https://pmaman.github.io/Reactuts/src/data/lacmta-brt.geojson'
+                data: 'https://pmaman.github.io/Reactuts/src/data/lacmta_brt_singlepart.geojson'
             });
 
             map.current.addLayer({
                 'id': 'lacmta-brt',
-                type: 'MultiLineString', 
+                type: 'line', 
                 source: 'lacmta-brt',
                 'paint':{
                     'line-color': 'black',
